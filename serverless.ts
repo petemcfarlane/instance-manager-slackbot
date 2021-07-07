@@ -2,6 +2,7 @@ import type { AWS } from "@serverless/typescript";
 
 import hello from "@functions/hello";
 import listInstances from "@functions/listInstances";
+import createInstance from "@functions/createInstance";
 
 const serverlessConfiguration: AWS = {
   service: "qhealth",
@@ -27,7 +28,7 @@ const serverlessConfiguration: AWS = {
     profile: "serverless-deploy",
   },
   // import the function via paths
-  functions: { hello, listInstances },
+  functions: { hello, listInstances, createInstance },
 };
 
 module.exports = serverlessConfiguration;
