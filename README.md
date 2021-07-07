@@ -24,3 +24,36 @@ When you reach a stage you’re happy with, you should provide:
 - Instructions on how to use it
 - A .zip file of your project, including any & all source files, a readme file (which also documents any assumptions made during the implementation), config, tests etc..
 - A running slack bot account or a deployment script so we can test it
+
+---
+
+## Initial plan
+Create MySQL database with table `instances`
+
+| instanceId | status  |
+|------------|---------|
+| abc123     | running |
+| def456     | stopped |
+| hij789     | pending |
+
+- /list-instances
+🟢 abc123
+🟠 hij789
+🔴 def456
+
+- /create-instance
+🔴 def456
+(should it also start it?)
+
+- /remove-instance def456
+(should we allow removing only stopped instances?)
+
+- /start-instance def456
+(doesn't do anything to pending/running instances)
+
+- /stop-instance abc123
+(doesn't do anything to stopped instances)
+
+- /instance-status abc123
+🟢 abc123
+
