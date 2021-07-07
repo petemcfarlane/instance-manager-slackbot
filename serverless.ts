@@ -3,6 +3,7 @@ import type { AWS } from "@serverless/typescript";
 import hello from "@functions/hello";
 import listInstances from "@functions/listInstances";
 import createInstance from "@functions/createInstance";
+import stopInstance from "@functions/stopInstance";
 
 const serverlessConfiguration: AWS = {
   useDotenv: true,
@@ -32,7 +33,7 @@ const serverlessConfiguration: AWS = {
         statements: [
           {
             Effect: "Allow",
-            Action: ["ec2:DescribeInstances"],
+            Action: ["ec2:DescribeInstances", "ec2:StopInstances"],
             Resource: "*",
           },
           {
@@ -85,7 +86,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { hello, listInstances, createInstance },
+  functions: { hello, listInstances, createInstance, stopInstance },
 };
 
 module.exports = serverlessConfiguration;
