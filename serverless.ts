@@ -3,6 +3,7 @@ import type { AWS } from "@serverless/typescript";
 import hello from "@functions/hello";
 import listInstances from "@functions/listInstances";
 import createInstance from "@functions/createInstance";
+import describeInstanceStatus from "@functions/describeInstanceStatus";
 import startInstance from "@functions/startInstance";
 import stopInstance from "@functions/stopInstance";
 import terminateInstance from "@functions/terminateInstance";
@@ -37,6 +38,7 @@ const serverlessConfiguration: AWS = {
             Effect: "Allow",
             Action: [
               "ec2:DescribeInstances",
+              "ec2:DescribeInstanceStatus",
               "ec2:StartInstances",
               "ec2:StopInstances",
               "ec2:TerminateInstances",
@@ -97,6 +99,7 @@ const serverlessConfiguration: AWS = {
     hello,
     listInstances,
     createInstance,
+    describeInstanceStatus,
     startInstance,
     stopInstance,
     terminateInstance,
