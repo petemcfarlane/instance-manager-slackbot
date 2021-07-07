@@ -5,6 +5,7 @@ import listInstances from "@functions/listInstances";
 import createInstance from "@functions/createInstance";
 
 const serverlessConfiguration: AWS = {
+  useDotenv: true,
   service: "qhealth",
   frameworkVersion: "2",
   custom: {
@@ -13,7 +14,7 @@ const serverlessConfiguration: AWS = {
       includeModules: true,
     },
   },
-  plugins: ["serverless-webpack"],
+  plugins: ["serverless-webpack", "serverless-dotenv-plugin"],
   provider: {
     name: "aws",
     runtime: "nodejs14.x",
@@ -26,13 +27,62 @@ const serverlessConfiguration: AWS = {
     },
     lambdaHashingVersion: "20201221",
     profile: "serverless-deploy",
-    iamRoleStatements: [
-      {
-        Effect: "Allow",
-        Action: ["ec2:DescribeInstances"],
-        Resource: "*",
+    iam: {
+      role: {
+        statements: [
+          {
+            Effect: "Allow",
+            Action: ["ec2:DescribeInstances"],
+            Resource: "*",
+          },
+          {
+            Effect: "Allow",
+            Action: "ec2:RunInstances",
+            Resource: [
+              {
+                "Fn::Join": [
+                  ":",
+                  ["arn:aws:ec2:*", { Ref: "AWS::AccountId" }, "subnet/*"],
+                ],
+              },
+              {
+                "Fn::Join": [
+                  ":",
+                  [
+                    "arn:aws:ec2:*",
+                    { Ref: "AWS::AccountId" },
+                    "network-interface/*",
+                  ],
+                ],
+              },
+              {
+                "Fn::Join": [
+                  ":",
+                  ["arn:aws:ec2:*", { Ref: "AWS::AccountId" }, "instance/*"],
+                ],
+              },
+              {
+                "Fn::Join": [
+                  ":",
+                  ["arn:aws:ec2:*", { Ref: "AWS::AccountId" }, "volume/*"],
+                ],
+              },
+              {
+                "Fn::Join": [
+                  ":",
+                  [
+                    "arn:aws:ec2:*",
+                    { Ref: "AWS::AccountId" },
+                    "security-group/*",
+                  ],
+                ],
+              },
+              "arn:aws:ec2:*::image/*",
+            ],
+          },
+        ],
       },
-    ],
+    },
   },
   // import the function via paths
   functions: { hello, listInstances, createInstance },

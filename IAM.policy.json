@@ -1,65 +1,69 @@
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "apigateway:DELETE",
-                "apigateway:GET",
-                "apigateway:POST",
-                "apigateway:PUT",
-                "cloudformation:CreateStack",
-                "cloudformation:DeleteStack",
-                "cloudformation:DescribeStacks",
-                "cloudformation:DescribeStackEvents",
-                "cloudformation:DescribeStackResource",
-                "cloudformation:DescribeStackResources",
-                "cloudformation:ListStackResources",
-                "cloudformation:UpdateStack",
-                "cloudformation:ValidateTemplate",
-                "lambda:AddPermission",
-                "lambda:CreateFunction",
-                "lambda:DeleteFunction",
-                "lambda:GetFunction",
-                "lambda:GetFunctionConfiguration",
-                "lambda:ListVersionsByFunction",
-                "lambda:PublishVersion",
-                "lambda:RemovePermission",
-                "lambda:UpdateFunctionCode",
-                "logs:CreateLogGroup",
-                "logs:DescribeLogGroups",
-                "logs:DeleteLogGroup",
-                "s3:CreateBucket",
-                "s3:DeleteBucket",
-                "s3:DeleteBucketPolicy",
-                "s3:GetBucketPolicy",
-                "s3:GetBucketPolicyStatus",
-                "s3:ListBucket",
-                "s3:PutBucketPolicy",
-                "s3:PutEncryptionConfiguration"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "VisualEditor1",
-            "Effect": "Allow",
-            "Action": [
-                "iam:CreateRole",
-                "iam:DeleteRole",
-                "iam:DeleteRolePolicy",
-                "iam:GetRole",
-                "iam:GetRolePolicy",
-                "iam:ListRoleTags",
-                "iam:PassRole",
-                "iam:PutRolePolicy",
-                "s3:GetObject",
-                "s3:PutObject"
-            ],
-            "Resource": [
-                "arn:aws:iam::*:role/qhealth-dev-*",
-                "arn:aws:s3:::qhealth-dev-*/*"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VisualEditor0",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:CreateFunction",
+        "lambda:ListVersionsByFunction",
+        "logs:DescribeLogStreams",
+        "s3:CreateBucket",
+        "lambda:GetFunctionConfiguration",
+        "s3:ListBucket",
+        "cloudformation:DescribeStackResource",
+        "s3:GetBucketPolicy",
+        "s3:PutEncryptionConfiguration",
+        "apigateway:DELETE",
+        "cloudformation:DescribeStackEvents",
+        "cloudformation:UpdateStack",
+        "lambda:DeleteFunction",
+        "logs:FilterLogEvents",
+        "apigateway:GET",
+        "s3:DeleteBucket",
+        "cloudformation:ListStackResources",
+        "s3:GetBucketPolicyStatus",
+        "logs:DescribeLogGroups",
+        "apigateway:PUT",
+        "logs:DeleteLogGroup",
+        "lambda:InvokeFunction",
+        "lambda:GetFunction",
+        "lambda:UpdateFunctionConfiguration",
+        "cloudformation:DescribeStackResources",
+        "s3:DeleteBucketPolicy",
+        "logs:CreateLogGroup",
+        "cloudformation:DescribeStacks",
+        "lambda:UpdateFunctionCode",
+        "lambda:AddPermission",
+        "cloudformation:CreateStack",
+        "cloudformation:DeleteStack",
+        "s3:PutBucketPolicy",
+        "lambda:PublishVersion",
+        "apigateway:POST",
+        "lambda:RemovePermission",
+        "cloudformation:ValidateTemplate"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "VisualEditor1",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "s3:PutObject",
+        "s3:GetObject",
+        "iam:PassRole",
+        "iam:ListRoleTags",
+        "iam:DeleteRolePolicy",
+        "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:PutRolePolicy",
+        "iam:GetRolePolicy"
+      ],
+      "Resource": [
+        "arn:aws:iam::*:role/qhealth-dev-*",
+        "arn:aws:s3:::qhealth-dev-*/*"
+      ]
+    }
+  ]
 }
