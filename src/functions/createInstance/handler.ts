@@ -4,6 +4,7 @@ import { EC2Client, Instance, RunInstancesCommand } from "@aws-sdk/client-ec2";
 
 const createInstance = async () => {
   const client = new EC2Client({});
+  // todo: Should we limit how many instances can be created overall?!
   const command = new RunInstancesCommand({
     MaxCount: 1,
     MinCount: 1,

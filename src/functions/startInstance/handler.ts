@@ -5,26 +5,24 @@ import { middyfy } from "@libs/lambda";
 import {
   EC2Client,
   InstanceStateChange,
-  StopInstancesCommand,
+  StartInstancesCommand,
 } from "@aws-sdk/client-ec2";
 import schema from "./schema";
 
-const stopInstance: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
+const startInstance: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
   const client = new EC2Client({});
-  // todo: validate instanceIds
-  // what happens if the instances don't exist or are already stopped?
-  const command = new StopInstancesCommand({
+  const command = new StartInstancesCommand({
     InstanceIds: [event.body.instanceId],
   });
   const response = await client.send(command);
 
   return formatJSONResponse({
-    instances: response.StoppingInstances.map(
+    instances: response.StartingInstances.map(
       (state: InstanceStateChange) => state.InstanceId
     ),
   });
 };
 
-export const main = middyfy(stopInstance);
+export const main = middyfy(startInstance);
