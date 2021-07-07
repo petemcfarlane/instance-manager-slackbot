@@ -4,6 +4,9 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
+    "lint": "eslint . --ext js,ts --cache --fix",
+    "prettier": "prettier --write './**/*.{js,ts}'",
+    "typecheck": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -23,6 +26,7 @@
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "fork-ts-checker-webpack-plugin": "^6.2.12",
     "json-schema-to-ts": "^1.5.0",
     "prettier": "^2.3.2",
     "serverless": "^2.23.0",
