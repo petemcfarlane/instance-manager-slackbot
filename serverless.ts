@@ -26,6 +26,13 @@ const serverlessConfiguration: AWS = {
     },
     lambdaHashingVersion: "20201221",
     profile: "serverless-deploy",
+    iamRoleStatements: [
+      {
+        Effect: "Allow",
+        Action: ["ec2:DescribeInstances"],
+        Resource: "*",
+      },
+    ],
   },
   // import the function via paths
   functions: { hello, listInstances, createInstance },
