@@ -5,7 +5,7 @@ import {
   DescribeInstancesCommand,
   Reservation,
   Instance,
-} from "@aws-sdk/client-ec2"; // ES Modules import
+} from "@aws-sdk/client-ec2";
 
 const listInstances = async () => {
   const client = new EC2Client({});
