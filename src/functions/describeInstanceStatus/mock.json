@@ -1,6 +1,0 @@
-{
-  "headers": {
-    "Content-Type": "application/json"
-  },
-  "body": "{\"instanceId\": \"i-03da2cf13a25822db\"}"
-}

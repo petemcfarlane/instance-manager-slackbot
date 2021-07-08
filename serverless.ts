@@ -1,14 +1,5 @@
 import type { AWS } from "@serverless/typescript";
-
-import {
-  slack,
-  listInstances,
-  createInstance,
-  describeInstanceStatus,
-  startInstance,
-  stopInstance,
-  terminateInstance,
-} from "@functions/index";
+import slack from "@functions/slack/events";
 
 const serverlessConfiguration: AWS = {
   useDotenv: true,
@@ -98,12 +89,6 @@ const serverlessConfiguration: AWS = {
   },
   // import the function via paths
   functions: {
-    listInstances,
-    createInstance,
-    describeInstanceStatus,
-    startInstance,
-    stopInstance,
-    terminateInstance,
     slack,
   },
 };

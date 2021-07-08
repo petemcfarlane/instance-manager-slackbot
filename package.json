@@ -1,7 +1,7 @@
 {
-  "name": "qhealth",
+  "name": "instance-manager",
   "version": "1.0.0",
-  "description": "Serverless aws-nodejs-typescript template",
+  "description": "A Slack bot for managing AWS EC2 instances",
   "main": "serverless.ts",
   "scripts": {
     "lint": "eslint . --ext js,ts --cache --fix",
@@ -14,8 +14,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-ec2": "^3.20.0",
-    "@middy/core": "^1.5.2",
-    "@middy/http-json-body-parser": "^1.5.2",
     "@slack/bolt": "^3.4.1",
     "source-map-support": "^0.5.19"
   },
@@ -29,9 +27,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "fork-ts-checker-webpack-plugin": "^6.2.12",
-    "json-schema-to-ts": "^1.5.0",
     "prettier": "^2.3.2",
-    "serverless": "^2.23.0",
+    "serverless": "^2.51.1",
     "serverless-dotenv-plugin": "^3.9.0",
     "serverless-webpack": "^5.3.5",
     "ts-loader": "^8.0.15",
@@ -42,6 +39,6 @@
     "webpack": "^5.20.2",
     "webpack-node-externals": "^2.5.2"
   },
-  "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
+  "author": "Pete McFarlane",
   "license": "MIT"
 }
