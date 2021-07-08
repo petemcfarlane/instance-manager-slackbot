@@ -7,6 +7,16 @@ export async function generateView(): Promise<View> {
   const instanceBlocks = instances.Reservations.flatMap(
     (reservation: Reservation) => reservation.Instances.map(renderInstanceBlock)
   );
+  if (instanceBlocks.length === 0) {
+    instanceBlocks.push({
+      type: "section",
+      text: {
+        type: "plain_text",
+        text: "There are no EC2 instances. Click the button below to start one.",
+        emoji: true,
+      },
+    });
+  }
 
   return {
     type: "modal",
