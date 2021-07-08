@@ -1,36 +1,8 @@
-# Challenge 1: Cloud Slack Bot
-Create a slack bot to manage cloud instances. You can choose whatever cloud provider you want (e.g. Openstack, AWS, GCP, Azure).
+# EC2 Instance Manager for Slack
 
-The bot should be able to support:
-- Creating new instances
-- Removing existing instances
-- Starting an instance
-- Stopping an instance
-- Displaying the status of an instance
-- List all available instances
-
-The bot should also be able to show a help message.
-
-## Tools
-For the components that make up this application please use a tool/language you’re comfortable with from this list.
-
-API Back End: Node or PHP
-
-Database: MySQL or MongoDB
-
-## Deliverables
-When you reach a stage you’re happy with, you should provide:
-
-- Instructions on how to use it
-- A .zip file of your project, including any & all source files, a readme file (which also documents any assumptions made during the implementation), config, tests etc..
-- A running slack bot account or a deployment script so we can test it
-
----
-
-I was challenged to create a Slack bot to manage cloud instances. For this I chose AWS as the provider as I have most familiarity with this platform.
+I was challenged to create a Slack bot to manage cloud instances. I chose AWS as the cloud provider as I have most familiarity with this platform.
 
 First step: Create a new AWS account.
-
 ### Managing instances
 
 I decided to use the Serverless framework, with TypeScript, and hosted on my new AWS account using API Gateway and Lambda, because I believed this would be an ideal solution for a Slack bot - we don't have to provision a server to be continually running, we can just respond on demand.
@@ -42,13 +14,16 @@ I used the `aws-sdk` for NodeJS to communicate to my AWS account. I had to grant
 Using TypeScript was really helpful to determine the shape of the requests/responses coming from the AWS API.
 
 ### Slack bot
-Once I had the functionality working, I wanted to try setting up the Slack bot. I was aware of the Slack [Bolt-js Framework](https://slack.dev/bolt-js/reference) but hadn't recently used it. The have an option for running as a Lambda service, rather than a HTTP server, although there were a few issues with the TypeScript definitions. (For example, the `app.start()` near the bottom of `src/functions/slack/events/handler.ts` isn't generic so I had to do some typescript ugliness to get it to compile:
+Once I had the functionality working, I wanted to try setting up the Slack bot. I chose the Slack [Bolt-js Framework](https://slack.dev/bolt-js/reference) to help me. The have an option for running as a Lambda service, rather than a HTTP server, although there were a few issues with the TypeScript definitions. (For example, the `app.start()` near the bottom of `src/functions/slack/events/handler.ts` isn't generic so I had to do some typescript ugliness to get it to compile:
 ```typescript
 // todo the library docs note that the start() should be made generic, see if I can get around to making a PR for this...
 const handler: AwsHandler | any = await app.start();
 ```
 
 I then tried to add a Slack shortcut - I thought this would be quite a nice way to interact with the app. The shortcut can be accessed from any channel by hitting the `/` button or clicking the ⚡️ button on the left, or the global search bar `⌘` + `G` and searching "list instances".
+
+![Slack shortcuts](media/slack-shortcuts.png)
+
 There is a listener inside `src/functions/slack/events/handler.ts` which responds to this by calling the library command `listInstances()` and with that response, renders a Slack Block-based view of any/each EC2 instances, with a colourful icon to represent the instance status, and the instance name.
 The [Slack block kit](https://api.slack.com/block-kit) has a playground which makes it really nice to create interactive modals and views. Part of this is a section with a selection, where you can have a dropdown with different actions. I decided to use this, rather than having separate slack commands, to interact with the instances. I know this deviates from the brief slightly, but I think it matches the Slack, interactive experience - I hope this is understandable!
 
