@@ -2,21 +2,14 @@ import "source-map-support/register";
 import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/apiGateway";
 import { formatJSONResponse } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
-import {
-  EC2Client,
-  InstanceStateChange,
-  StartInstancesCommand,
-} from "@aws-sdk/client-ec2";
+import { InstanceStateChange } from "@aws-sdk/client-ec2";
 import schema from "./schema";
+import { startInstance } from "@libs/awsEc2";
 
-const startInstance: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
+const start: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
-  const client = new EC2Client({});
-  const command = new StartInstancesCommand({
-    InstanceIds: [event.body.instanceId],
-  });
-  const response = await client.send(command);
+  const response = await startInstance(event.body.instanceId);
 
   return formatJSONResponse({
     instances: response.StartingInstances.map(
@@ -25,4 +18,4 @@ const startInstance: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   });
 };
 
-export const main = middyfy(startInstance);
+export const main = middyfy(start);

@@ -1,17 +1,10 @@
 import "source-map-support/register";
 import { formatJSONResponse } from "@libs/apiGateway";
-import { EC2Client, Instance, RunInstancesCommand } from "@aws-sdk/client-ec2";
+import { Instance } from "@aws-sdk/client-ec2";
+import { runInstance } from "@libs/awsEc2";
 
-const createInstance = async () => {
-  const client = new EC2Client({});
-  // todo: Should we limit how many instances can be created overall?!
-  const command = new RunInstancesCommand({
-    MaxCount: 1,
-    MinCount: 1,
-    ImageId: process.env.AMI_ID,
-    // todo set security groups, network interfaces etc.
-  });
-  const response = await client.send(command);
+export const main = async () => {
+  const response = await runInstance();
 
   return formatJSONResponse({
     response: response.Instances.map(
@@ -19,5 +12,3 @@ const createInstance = async () => {
     ),
   });
 };
-
-export const main = createInstance;

@@ -1,18 +1,10 @@
 import "source-map-support/register";
 import { formatJSONResponse } from "@libs/apiGateway";
-import {
-  EC2Client,
-  DescribeInstancesCommand,
-  Reservation,
-  Instance,
-} from "@aws-sdk/client-ec2";
+import { Reservation, Instance } from "@aws-sdk/client-ec2";
+import { listInstances } from "@libs/awsEc2";
 
-const listInstances = async () => {
-  const client = new EC2Client({});
-  const command = new DescribeInstancesCommand({
-    // todo: Add filters, max results, pagination
-  });
-  const response = await client.send(command);
+export const main = async () => {
+  const response = await listInstances();
 
   const instances = response.Reservations.flatMap((reservation: Reservation) =>
     reservation.Instances.map(
@@ -21,5 +13,3 @@ const listInstances = async () => {
   );
   return formatJSONResponse({ instances });
 };
-
-export const main = listInstances;

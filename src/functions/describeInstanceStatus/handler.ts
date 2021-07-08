@@ -2,28 +2,20 @@ import "source-map-support/register";
 import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/apiGateway";
 import { formatJSONResponse } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
-import {
-  EC2Client,
-  DescribeInstanceStatusCommand,
-  InstanceStatus,
-} from "@aws-sdk/client-ec2";
+import { InstanceStatus } from "@aws-sdk/client-ec2";
 import schema from "./schema";
+import { describeInstanceStatus } from "@libs/awsEc2";
 
-const startInstance: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
-  event
-) => {
-  const client = new EC2Client({});
-  const command = new DescribeInstanceStatusCommand({
-    InstanceIds: [event.body.instanceId],
-  });
-  const response = await client.send(command);
+const describeInstance: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
+  async (event) => {
+    const response = await describeInstanceStatus(event.body.instanceId);
 
-  return formatJSONResponse({
-    instances: response.InstanceStatuses.map(
-      (instance: InstanceStatus) =>
-        `${instance.InstanceId}: ${instance.InstanceState.Name}`
-    ),
-  });
-};
+    return formatJSONResponse({
+      instances: response.InstanceStatuses.map(
+        (instance: InstanceStatus) =>
+          `${instance.InstanceId}: ${instance.InstanceState.Name}`
+      ),
+    });
+  };
 
-export const main = middyfy(startInstance);
+export const main = middyfy(describeInstance);
