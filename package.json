@@ -28,7 +28,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "fork-ts-checker-webpack-plugin": "^6.2.12",
     "prettier": "^2.3.2",
-    "serverless": "^3.24.1",
+    "serverless": "^4.31.0",
     "serverless-dotenv-plugin": "^3.9.0",
     "serverless-webpack": "^5.3.5",
     "ts-loader": "^8.0.15",
