@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-ec2": "^3.1006.0",
-    "@slack/bolt": "^3.21.4",
+    "@slack/bolt": "^5.1.0",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {
